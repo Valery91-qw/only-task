@@ -1,26 +1,27 @@
+import styled from 'styled-components'
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+        <Header>
+            Only.
+        </Header>
+    </AppWrapper>
   );
 }
+
+const AppWrapper = styled.div`
+width: 100vw;
+height: 100vh;
+padding: 40px;  
+`
+const Header = styled.h1`
+font-weight: 700;
+font-size: 64px;
+line-height: 78px;
+text-transform: uppercase;
+text-align: center;  
+`
 
 export default App;
