@@ -1,14 +1,16 @@
 import styled from 'styled-components'
 import React from 'react';
+import Router from "./router/Router";
 
 function App() {
-  return (
-    <AppWrapper>
-        <Header>
-            Only.
-        </Header>
-    </AppWrapper>
-  );
+    return (
+        <AppWrapper>
+            <Header>
+                Only.
+            </Header>
+            <Router />
+        </AppWrapper>
+    );
 }
 
 const AppWrapper = styled.div`
