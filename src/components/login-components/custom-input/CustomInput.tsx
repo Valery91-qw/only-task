@@ -5,7 +5,6 @@ import ICustomInput from "./CustomInput.interface";
 
 const StyledInput = styled.input`
   margin-bottom: 20px;
-  margin-right: 20px;
   padding: 20px;
   color: #232323;
   font-weight: 400;
