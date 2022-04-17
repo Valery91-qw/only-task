@@ -2,17 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createGlobalStyle} from "styled-components";
-import {BrowserRouter} from "react-router-dom";
-
-const Global = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Helvetica Neue, Arial, sans-serif;
-  }
-`
+import { BrowserRouter } from 'react-router-dom';
+import Global from './components/helpers/Global';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
