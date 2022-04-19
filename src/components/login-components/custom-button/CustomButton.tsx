@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import React from "react";
 
-const CustomButton = styled.button`
+const StyledButton = styled.button`
   padding: 20px 0;
   font-size: 18px;
   font-weight: 700;
@@ -11,5 +12,15 @@ const CustomButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
 `
+
+const CustomButton: React.FC<{children: React.ReactNode}> = (
+    {children}
+) => {
+    return (
+        <StyledButton type='submit'>
+            {children}
+        </StyledButton>
+    )
+}
 
 export default CustomButton
