@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, {InputHTMLAttributes} from "react";
 import Label from "./Label";
 import ICustomInput from "./CustomInput.interface";
-import ErrorTypography from "../../helpers/ErrorTypography";
+import ErrorTypography from "../../common/ErrorTypography";
 import {FieldError} from "react-hook-form";
 
 interface IStyledInput extends InputHTMLAttributes<HTMLInputElement> {

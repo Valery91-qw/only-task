@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import {Resolver, useForm} from "react-hook-form";
-import React from "react";
+import {useForm} from "react-hook-form";
+import React, {useEffect, useState} from "react";
 import CustomInput from "./custom-input/CustomInput";
 import CustomCheckbox from "./custom-checkbox/CustomCheckbox";
 import CustomButton from "./custom-button/CustomButton";
-import ErrorTypography from "../helpers/ErrorTypography";
+import mockAPI from "../../mockAPI/mockAPI";
 
 const StyledForm = styled.form`
   width: 33.333333%;
@@ -17,26 +17,28 @@ type FormValues = {
     password: string;
 };
 
-// const resolver: Resolver<FormValues> = async (values) => {
-//     return {
-//         values: values.login ? values : {},
-//         errors: !values.login
-//             ? {
-//                 login: {
-//                     type: 'required',
-//                     message: 'This is required.',
-//                 },
-//             }
-//             : {},
-//     };
-// };
-
 const FormComponent: React.FC = () => {
 
+    const [login, setLogin] = useState<string>()
+    const [password, setPassword] = useState<string>()
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const onSubmit = handleSubmit((data) => console.log(data));
+    const onSubmit = handleSubmit((data) => {
+        setLogin(data.login);
+        setPassword(data.password);
+    });
     const {ref: loginRef,...restLoginRegister} = register('login', {required: true});
     const {ref: passwordRef,...restPasswordRegister} = register('password', {required: true});
+
+    useEffect(() => {
+        if(login && password)
+        mockAPI.singIn({login, password})
+            .then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+        })
+    }, [login, password])
 
     return (
         <StyledForm onSubmit={onSubmit}>
