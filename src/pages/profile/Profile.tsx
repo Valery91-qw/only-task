@@ -4,21 +4,27 @@ import GreetingText from "../../components/profile-components/GreetingsText";
 import NickNameTypography from "../../components/profile-components/NickNameTypography";
 import ExitButton from "../../components/profile-components/ExitButton";
 import ProfileConstants from "./Profile.constants";
+import {useNavigate, useParams} from "react-router-dom";
+import paths from "../../router/paths";
 
-const Profile: React.FC<{name?: string}> = ({name = 'steve.jobs@example.com'}) => {
+const Profile: React.FC = () => {
+
+    const params = useParams()
+    const navigate = useNavigate()
+
+    const onClick = () => {
+        return navigate(paths.LOGIN)
+    }
+
     return (
         <PageWrapper>
             <GreetingText>
                 Здравствуйте,{ProfileConstants.NBSP}
-                <NickNameTypography>{name}</NickNameTypography>
+                <NickNameTypography>{params.login}</NickNameTypography>
             </GreetingText>
-            <ExitButton />
+            <ExitButton onClick={onClick}/>
         </PageWrapper>
     );
 };
-
-Profile.defaultProps = {
-    name: 'steve.jobs@example.com'
-}
 
 export default Profile;

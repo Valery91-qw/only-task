@@ -1,7 +1,7 @@
 
 const paths = {
     LOGIN: '/login',
-    PROFILE: '/profile',
+    PROFILE: '/profile/:login',
     MISMATCHED_ROUTES: '*',
 }
 export default paths

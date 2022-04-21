@@ -4,7 +4,9 @@ import React, {useEffect, useState} from "react";
 import CustomInput from "./custom-input/CustomInput";
 import CustomCheckbox from "./custom-checkbox/CustomCheckbox";
 import CustomButton from "./custom-button/CustomButton";
-import mockAPI from "../../mockAPI/mockAPI";
+import { useNavigate } from "react-router-dom";
+import {useFetch} from "../../hookHelpers/useFetch";
+import IForm from "./form.interface";
 
 const StyledForm = styled.form`
   width: 33.333333%;
@@ -12,33 +14,25 @@ const StyledForm = styled.form`
   flex-direction: column;
 `
 
-type FormValues = {
-    login: string;
-    password: string;
-};
-
 const FormComponent: React.FC = () => {
 
+    const navigate = useNavigate();
     const [login, setLogin] = useState<string>()
     const [password, setPassword] = useState<string>()
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<IForm>()
     const onSubmit = handleSubmit((data) => {
         setLogin(data.login);
         setPassword(data.password);
-    });
-    const {ref: loginRef,...restLoginRegister} = register('login', {required: true});
-    const {ref: passwordRef,...restPasswordRegister} = register('password', {required: true});
+    })
+
+    const {ref: loginRef,...restLoginRegister} = register('login', {required: true})
+    const {ref: passwordRef,...restPasswordRegister} = register('password', {required: true})
+    const [loading, isSuccess] = useFetch(login, password)
 
     useEffect(() => {
-        if(login && password)
-        mockAPI.singIn({login, password})
-            .then((res) => {
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
-        })
-    }, [login, password])
+        if(isSuccess) return navigate(`/profile/${login}`)
+    }, [isSuccess])
 
     return (
         <StyledForm onSubmit={onSubmit}>
@@ -54,7 +48,7 @@ const FormComponent: React.FC = () => {
                          type='password'/>
             <CustomCheckbox displayedText='Запомнить меня'
                             type='checkbox'/>
-            <CustomButton>Войти</CustomButton>
+            <CustomButton isLoad={loading}>Войти</CustomButton>
         </StyledForm>
     )
 }

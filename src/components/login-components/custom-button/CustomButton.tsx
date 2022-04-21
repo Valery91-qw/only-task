@@ -11,13 +11,17 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  &:disabled {
+    background-color: #99A9FF;
+    cursor: wait;
+  }
 `
 
-const CustomButton: React.FC<{children: React.ReactNode}> = (
-    {children}
+const CustomButton: React.FC<{children: React.ReactNode, isLoad?: boolean}> = (
+    {children, isLoad}
 ) => {
     return (
-        <StyledButton type='submit'>
+        <StyledButton type='submit' disabled={isLoad}>
             {children}
         </StyledButton>
     )

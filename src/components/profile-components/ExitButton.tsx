@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const Button = styled.button`
   padding: 20px 70px;
@@ -10,9 +11,9 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const ExitButton = () => {
+const ExitButton: React.FC<{onClick: () => void }> = ({onClick}) => {
     return (
-        <Button>
+        <Button onClick={onClick}>
             Выйти
         </Button>
     )
