@@ -1,5 +1,5 @@
 import React from 'react';
-import PageWrapper from "../../components/helpers/PageWrapper";
+import PageWrapper from "../../components/common/PageWrapper";
 import GreetingText from "../../components/profile-components/GreetingsText";
 import NickNameTypography from "../../components/profile-components/NickNameTypography";
 import ExitButton from "../../components/profile-components/ExitButton";

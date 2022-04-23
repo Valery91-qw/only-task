@@ -1,5 +1,5 @@
 import React from 'react';
-import PageWrapper from "../../components/helpers/PageWrapper";
+import PageWrapper from "../../components/common/PageWrapper";
 import FormComponent from "../../components/login-components/FormComponent";
 
 const Login = () => {

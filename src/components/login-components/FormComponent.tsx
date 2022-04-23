@@ -7,6 +7,7 @@ import CustomButton from "./custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import {useFetch} from "../../hookHelpers/useFetch";
 import IForm from "./form.interface";
+import ErrorField from "../common/errors/ErrorField";
 
 const StyledForm = styled.form`
   width: 33.333333%;
@@ -14,21 +15,24 @@ const StyledForm = styled.form`
   flex-direction: column;
 `
 
+const defaultValues = {
+    login: '',
+    password: '',
+}
+
 const FormComponent: React.FC = () => {
 
     const navigate = useNavigate();
     const [login, setLogin] = useState<string>()
     const [password, setPassword] = useState<string>()
-
-    const { register, handleSubmit, formState: { errors } } = useForm<IForm>()
+    const { reset ,register, handleSubmit, formState: { errors } } = useForm<IForm>({defaultValues})
     const onSubmit = handleSubmit((data) => {
         setLogin(data.login);
         setPassword(data.password);
     })
-
     const {ref: loginRef,...restLoginRegister} = register('login', {required: true})
     const {ref: passwordRef,...restPasswordRegister} = register('password', {required: true})
-    const [loading, isSuccess] = useFetch(login, password)
+    const [loading, isSuccess] = useFetch(reset, login, password)
 
     useEffect(() => {
         if(isSuccess) return navigate(`/profile/${login}`)
@@ -36,6 +40,7 @@ const FormComponent: React.FC = () => {
 
     return (
         <StyledForm onSubmit={onSubmit}>
+            {isSuccess === false && !errors.login && <ErrorField userName={login}/>}
             <CustomInput displayedText='Логин'
                          ref={loginRef}
                          error={errors.login}

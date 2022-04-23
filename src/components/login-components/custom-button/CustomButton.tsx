@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import ICustomButton from "./CustomButton.interface";
 
 const StyledButton = styled.button`
   padding: 20px 0;
@@ -17,11 +18,11 @@ const StyledButton = styled.button`
   }
 `
 
-const CustomButton: React.FC<{children: React.ReactNode, isLoad?: boolean}> = (
-    {children, isLoad}
+const CustomButton: React.FC<ICustomButton> = (
+    {children, isLoad, ...rest}
 ) => {
     return (
-        <StyledButton type='submit' disabled={isLoad}>
+        <StyledButton type='submit' disabled={isLoad} {...rest}>
             {children}
         </StyledButton>
     )
