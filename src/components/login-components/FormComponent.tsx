@@ -15,32 +15,28 @@ const StyledForm = styled.form`
   flex-direction: column;
 `
 
-const defaultValues = {
-    login: '',
-    password: '',
-}
-
 const FormComponent: React.FC = () => {
 
     const navigate = useNavigate();
-    const [login, setLogin] = useState<string>()
-    const [password, setPassword] = useState<string>()
-    const { reset ,register, handleSubmit, formState: { errors } } = useForm<IForm>({defaultValues})
+    const [login, setLogin] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const { register, handleSubmit, formState: { errors } } = useForm<IForm>()
     const onSubmit = handleSubmit((data) => {
         setLogin(data.login);
         setPassword(data.password);
     })
     const {ref: loginRef,...restLoginRegister} = register('login', {required: true})
     const {ref: passwordRef,...restPasswordRegister} = register('password', {required: true})
-    const [loading, isSuccess] = useFetch(reset, login, password)
+
+    const [loading, isSuccess] = useFetch(login, password)
 
     useEffect(() => {
         if(isSuccess) return navigate(`/profile/${login}`)
-    }, [isSuccess])
+    }, [isSuccess, navigate, login])
 
     return (
         <StyledForm onSubmit={onSubmit}>
-            {isSuccess === false && !errors.login && <ErrorField userName={login}/>}
+            { isSuccess === false && !errors.login && !loading && <ErrorField userName={login}/> }
             <CustomInput displayedText='Логин'
                          ref={loginRef}
                          error={errors.login}

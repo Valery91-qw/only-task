@@ -5,7 +5,7 @@ import FormComponent from "../../components/login-components/FormComponent";
 const Login = () => {
     return (
         <PageWrapper>
-            <FormComponent />
+            <FormComponent/>
         </PageWrapper>
     );
 };
